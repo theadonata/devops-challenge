@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 710" role="img" aria-label="Architecture diagram of the Fortify The Castle trading platform on AWS, with security changes from Problem 5 marked by red lock badges on the affected services">
+  <defs>
+    <pattern id="g" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#1c3f63" stroke-width="1" stroke-opacity="0.55"></path>
+    </pattern>
+    <marker id="aH" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0L10,5L0,10z" fill="#2fd9e6"></path>
+    </marker>
+    <marker id="aM" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0L10,5L0,10z" fill="#7fa3c7"></path>
+    </marker>
+    <g id="lock-public">
+      <circle cx="0" cy="0" r="11" fill="#3a0a0a" stroke="#ff6b6b" stroke-width="1.5"></circle>
+      <path d="M-4,-1 v-3 a4,4 0 0 1 8,0 v3" fill="none" stroke="#ff6b6b" stroke-width="1.6"></path>
+      <rect x="-5.5" y="-1" width="11" height="8" rx="1.5" fill="#ff6b6b"></rect>
+    </g>
+    <g id="lock-internal">
+      <circle cx="0" cy="0" r="11" fill="#132a1f" stroke="#7fa3c7" stroke-width="1.5"></circle>
+      <path d="M-4,-1 v-3 a4,4 0 0 1 8,0 v3" fill="none" stroke="#7fa3c7" stroke-width="1.6"></path>
+      <rect x="-5.5" y="-1" width="11" height="8" rx="1.5" fill="#7fa3c7"></rect>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="710" fill="#0e2a47"></rect>
+  <rect x="0" y="0" width="1400" height="710" fill="url(#g)"></rect>
+  <rect x="8" y="8" width="1384" height="694" fill="none" stroke="#2a527c" stroke-width="1.5"></rect>
+
+  <!-- ================= ZONES ================= -->
+  <rect x="25" y="10" width="871" height="90" rx="10" fill="#7dd3fc" fill-opacity="0.035" stroke="#7dd3fc" stroke-width="1.4" stroke-opacity="0.55" stroke-dasharray="7 5"></rect>
+  <text x="45" y="24" font-family="IBM Plex Mono" font-size="10.5" letter-spacing="0.08em" fill="#7dd3fc">FRONTEND — CLIENT APP &amp; DELIVERY</text>
+
+  <rect x="25" y="118" width="1350" height="492" rx="10" fill="#eaf3ff" fill-opacity="0.02" stroke="#7fa3c7" stroke-width="1.4" stroke-opacity="0.55" stroke-dasharray="7 5"></rect>
+  <text x="45" y="133" font-family="IBM Plex Mono" font-size="10.5" letter-spacing="0.08em" fill="#7fa3c7">BACKEND — AWS (VPC + MANAGED SERVICES)</text>
+
+  <!-- ================= MUTED / SUPPORTING WIRES ================= -->
+  <g fill="none" stroke="#7fa3c7" stroke-width="2">
+    <!-- frontend delivery -->
+    <line x1="273" y1="52" x2="308" y2="52" marker-end="url(#aM)"></line>
+    <line x1="532" y1="52" x2="588" y2="52" marker-end="url(#aM)"></line>
+    <!-- into the backend -->
+    <line x1="161" y1="80" x2="161" y2="140" marker-end="url(#aM)"></line>
+    <line x1="266" y1="168" x2="560" y2="168" marker-end="url(#aM)"></line>
+    <line x1="728" y1="168" x2="770" y2="168" marker-end="url(#aM)"></line>
+    <!-- ALB fan to Order + Wallet -->
+    <line x1="910" y1="196" x2="910" y2="230" marker-end="url(#aM)"></line>
+    <line x1="910" y1="230" x2="210" y2="230"></line>
+    <line x1="210" y1="230" x2="210" y2="280" marker-end="url(#aM)"></line>
+    <line x1="910" y1="230" x2="910" y2="280" marker-end="url(#aM)"></line>
+    <!-- Cognito fan to Order + Wallet -->
+    <line x1="1218" y1="196" x2="1218" y2="215" marker-end="url(#aM)"></line>
+    <polyline points="1218,215 280,215 280,280" marker-end="url(#aM)" stroke-dasharray="6 5"></polyline>
+    <polyline points="1218,215 840,215 840,280" marker-end="url(#aM)" stroke-dasharray="6 5"></polyline>
+    <!-- Matching Engine <-> Redis (recovery) -->
+    <line x1="560" y1="350" x2="560" y2="520" marker-end="url(#aM)"></line>
+    <line x1="560" y1="520" x2="560" y2="350" marker-end="url(#aM)"></line>
+  </g>
+  <circle cx="210" cy="230" r="3.5" fill="#7fa3c7"></circle>
+  <circle cx="910" cy="230" r="3.5" fill="#7fa3c7"></circle>
+  <circle cx="1218" cy="215" r="3.5" fill="#7fa3c7"></circle>
+
+  <g font-family="IBM Plex Sans" font-size="11.5" fill="#7fa3c7">
+    <text x="172" y="112">HTTPS</text>
+    <text x="196" y="248" text-anchor="end">place / cancel</text>
+    <text x="924" y="248" text-anchor="start">wallet ops</text>
+    <text x="266" y="272" text-anchor="end">verify</text>
+    <text x="854" y="272" text-anchor="start">verify</text>
+    <text x="572" y="440" text-anchor="start">sync</text>
+  </g>
+
+  <!-- ================= PRIMARY / HERO WIRES ================= -->
+  <g fill="none" stroke="#2fd9e6" stroke-width="2.75">
+    <line x1="210" y1="350" x2="210" y2="520" marker-end="url(#aH)"></line>
+    <line x1="322" y1="350" x2="322" y2="420" marker-end="url(#aH)"></line>
+    <line x1="476" y1="420" x2="476" y2="350" marker-end="url(#aH)"></line>
+    <line x1="644" y1="350" x2="644" y2="420" marker-end="url(#aH)"></line>
+    <line x1="812" y1="420" x2="812" y2="350" marker-end="url(#aH)"></line>
+    <line x1="910" y1="350" x2="910" y2="520" marker-end="url(#aH)"></line>
+    <line x1="910" y1="520" x2="910" y2="350" marker-end="url(#aH)"></line>
+    <polyline points="630,420 630,405 252,405 252,350" marker-end="url(#aH)"></polyline>
+  </g>
+
+  <rect x="498" y="357" width="125" height="16" fill="#0e2a47" fill-opacity="0.92" rx="3"></rect>
+  <text x="560" y="369" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#2fd9e6">matches buy ↔ sell</text>
+
+  <g font-family="IBM Plex Sans" font-size="11.5" font-weight="500" fill="#cdfaff">
+    <rect x="154" y="491" width="115" height="17" fill="#0e2a47" fill-opacity="0.92" rx="3"></rect>
+    <text x="211" y="504" text-anchor="middle">record order</text>
+
+    <rect x="228" y="378" width="179" height="17" fill="#0e2a47" fill-opacity="0.92" rx="3"></rect>
+    <text x="318" y="391" text-anchor="middle">publish: new / cancel</text>
+
+    <rect x="414" y="378" width="157" height="17" fill="#0e2a47" fill-opacity="0.92" rx="3"></rect>
+    <text x="493" y="391" text-anchor="middle">consume in order</text>
+
+    <rect x="594" y="378" width="101" height="17" fill="#0e2a47" fill-opacity="0.92" rx="3"></rect>
+    <text x="644" y="391" text-anchor="middle">on match</text>
+
+    <rect x="764" y="378" width="84" height="17" fill="#0e2a47" fill-opacity="0.92" rx="3"></rect>
+    <text x="806" y="391" text-anchor="middle">settle</text>
+
+    <rect x="505" y="400" width="110" height="14" fill="#0e2a47" fill-opacity="0.92" rx="3"></rect>
+    <text x="560" y="410" text-anchor="middle" font-size="10">update status</text>
+
+    <rect x="924" y="425" width="115" height="17" fill="#0e2a47" fill-opacity="0.92" rx="3"></rect>
+    <text x="981" y="438" text-anchor="middle">debit / credit</text>
+  </g>
+
+  <!-- ================= FRONTEND NODES ================= -->
+  <g>
+    <rect x="49" y="24" width="224" height="56" rx="28" fill="#0b233c" stroke="#eaf3ff" stroke-width="2"></rect>
+    <text x="161" y="47" text-anchor="middle" font-family="IBM Plex Mono" font-weight="700" font-size="14.5" fill="#eaf3ff">TRADER</text>
+    <text x="161" y="64" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#7fa3c7">Web / mobile client</text>
+  </g>
+
+  <g font-family="IBM Plex Mono" font-weight="700" font-size="14" fill="#eaf3ff">
+    <rect x="308" y="24" width="224" height="56" rx="8" fill="#7dd3fc" fill-opacity="0.12" stroke="#7dd3fc" stroke-width="2"></rect>
+    <text x="420" y="47" text-anchor="middle">CloudFront</text>
+    <text x="420" y="64" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">CDN edge cache</text>
+
+    <rect x="588" y="24" width="280" height="56" rx="8" fill="#a3b4cc" fill-opacity="0.12" stroke="#a3b4cc" stroke-width="2"></rect>
+    <text x="728" y="47" text-anchor="middle">S3</text>
+    <text x="728" y="64" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">Frontend build (static hosting)</text>
+  </g>
+
+  <!-- ================= BACKEND NODES ================= -->
+  <!-- Edge row -->
+  <g font-family="IBM Plex Mono" font-weight="700" font-size="14" fill="#eaf3ff">
+    <rect x="56" y="140" width="210" height="56" rx="8" fill="#7dd3fc" fill-opacity="0.12" stroke="#7dd3fc" stroke-width="2"></rect>
+    <text x="161" y="163" text-anchor="middle">Route 53</text>
+    <text x="161" y="180" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">DNS + health checks</text>
+
+    <rect x="560" y="140" width="168" height="56" rx="8" fill="#7dd3fc" fill-opacity="0.12" stroke="#7dd3fc" stroke-width="2"></rect>
+    <text x="644" y="163" text-anchor="middle">WAF</text>
+    <text x="644" y="180" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">Filters bad traffic</text>
+
+    <rect x="770" y="140" width="280" height="56" rx="8" fill="#7dd3fc" fill-opacity="0.12" stroke="#7dd3fc" stroke-width="2"></rect>
+    <text x="910" y="163" text-anchor="middle">Application LB</text>
+    <text x="910" y="180" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">Multi-AZ</text>
+
+    <rect x="1092" y="140" width="252" height="56" rx="8" fill="#a3b4cc" fill-opacity="0.12" stroke="#a3b4cc" stroke-width="2"></rect>
+    <text x="1218" y="163" text-anchor="middle">Cognito</text>
+    <text x="1218" y="180" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">Issues + verifies tokens</text>
+  </g>
+
+  <!-- Compute row (ECS Fargate) -->
+  <g font-family="IBM Plex Mono" font-weight="700" font-size="14" fill="#eaf3ff">
+    <rect x="70" y="280" width="280" height="70" rx="8" fill="#ffb454" fill-opacity="0.12" stroke="#ffb454" stroke-width="2"></rect>
+    <text x="210" y="309" text-anchor="middle">Order Service</text>
+    <text x="210" y="326" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">place (buy/sell) / cancel</text>
+
+    <rect x="420" y="280" width="280" height="70" rx="8" fill="#ffb454" fill-opacity="0.16" stroke="#ffb454" stroke-width="3"></rect>
+    <text x="560" y="307" text-anchor="middle">Matching Engine</text>
+    <text x="560" y="323" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="10.5" fill="#7fa3c7">1 per trading pair</text>
+    <text x="560" y="336" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="10.5" fill="#7fa3c7">in-memory order book</text>
+
+    <rect x="770" y="280" width="280" height="70" rx="8" fill="#ffb454" fill-opacity="0.12" stroke="#ffb454" stroke-width="2"></rect>
+    <text x="910" y="309" text-anchor="middle">Wallet Service</text>
+    <text x="910" y="326" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">deposit / check / withdraw</text>
+  </g>
+
+  <!-- Kafka topics (MSK) -->
+  <g font-family="IBM Plex Mono" font-weight="700" font-size="14" fill="#eaf3ff">
+    <rect x="245" y="420" width="280" height="60" rx="8" fill="#c084fc" fill-opacity="0.12" stroke="#c084fc" stroke-width="2"></rect>
+    <text x="385" y="447" text-anchor="middle">orders topic</text>
+    <text x="385" y="464" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">Amazon MSK · new + cancel</text>
+
+    <rect x="609" y="420" width="280" height="60" rx="8" fill="#c084fc" fill-opacity="0.12" stroke="#c084fc" stroke-width="2"></rect>
+    <text x="749" y="447" text-anchor="middle">trades topic</text>
+    <text x="749" y="464" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">Amazon MSK</text>
+  </g>
+
+  <!-- Data row -->
+  <g font-family="IBM Plex Mono" font-weight="700" font-size="14" fill="#eaf3ff">
+    <rect x="70" y="520" width="280" height="70" rx="8" fill="#5eead4" fill-opacity="0.12" stroke="#5eead4" stroke-width="2"></rect>
+    <text x="210" y="549" text-anchor="middle">DynamoDB</text>
+    <text x="210" y="566" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">orders</text>
+
+    <rect x="420" y="520" width="280" height="70" rx="8" fill="#5eead4" fill-opacity="0.12" stroke="#5eead4" stroke-width="2"></rect>
+    <text x="560" y="549" text-anchor="middle">ElastiCache</text>
+    <text x="560" y="566" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">Redis · order-book cache</text>
+
+    <rect x="770" y="520" width="280" height="70" rx="8" fill="#5eead4" fill-opacity="0.12" stroke="#5eead4" stroke-width="2"></rect>
+    <text x="910" y="549" text-anchor="middle">Aurora</text>
+    <text x="910" y="566" text-anchor="middle" font-family="IBM Plex Sans" font-weight="400" font-size="11" fill="#7fa3c7">Multi-AZ · balances</text>
+  </g>
+
+  <!-- ================= SECURITY BADGES (Problem 5) ================= -->
+  <!-- Public-facing: reachable straight from the internet — fixed first -->
+  <use href="#lock-public" x="858" y="30"></use>   <!-- S3: locked behind CloudFront OAC -->
+  <use href="#lock-public" x="522" y="30"></use>   <!-- CloudFront: HTTPS-only -->
+  <use href="#lock-public" x="718" y="146"></use>  <!-- WAF: now also covers CloudFront -->
+  <use href="#lock-public" x="1040" y="146"></use> <!-- ALB: HTTPS-only -->
+  <use href="#lock-public" x="341" y="286"></use>  <!-- Order Service: ownership check + input validation -->
+  <use href="#lock-public" x="1041" y="286"></use> <!-- Wallet Service: MFA step-up on withdrawal -->
+
+  <!-- Internal only (VPC) — defense-in-depth for if the public layer fails -->
+  <use href="#lock-internal" x="516" y="426"></use> <!-- orders topic: MSK encryption + ACLs -->
+  <use href="#lock-internal" x="880" y="426"></use> <!-- trades topic: MSK encryption + ACLs -->
+  <use href="#lock-internal" x="341" y="526"></use> <!-- DynamoDB: KMS + least-privilege creds -->
+  <use href="#lock-internal" x="691" y="526"></use> <!-- ElastiCache: Redis AUTH -->
+  <use href="#lock-internal" x="1041" y="526"></use> <!-- Aurora: KMS + least-privilege creds + audit ledger -->
+
+  <!-- ================= LEGEND (below the backend zone, inside the outer border) ================= -->
+  <g>
+    <use href="#lock-public" x="52" y="635"></use>
+    <text x="72" y="640" font-family="IBM Plex Sans" font-size="12" fill="#eaf3ff">= public-facing fix (fixed first)</text>
+    <use href="#lock-internal" x="52" y="656"></use>
+    <text x="72" y="661" font-family="IBM Plex Sans" font-size="12" fill="#eaf3ff">= internal-only fix (VPC, defense-in-depth)</text>
+    <text x="45" y="680" font-family="IBM Plex Sans" font-size="11" fill="#7fa3c7">+ AWS CloudTrail: audit log of every AWS API call — cross-cutting, not tied to one box above</text>
+  </g>
+
+</svg>

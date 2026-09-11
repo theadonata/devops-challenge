@@ -1,0 +1,38 @@
+---
+- name: Deploy backend API
+  hosts: tag_backend_api
+  gather_facts: false
+  become: true
+
+  vars:
+    artifact_bucket: my-company-deploy-artifacts
+    artifact_key: backend.zip
+    service_name: backend-api
+    install_dir: /opt/backend
+
+  tasks:
+    - name: Fetch deploy artifact from S3
+      ansible.builtin.command:
+        cmd: "aws s3 cp s3://{{ artifact_bucket }}/{{ artifact_key }} /tmp/{{ artifact_key }}"
+      changed_when: true
+
+    - name: Stop service
+      ansible.builtin.systemd:
+        name: "{{ service_name }}"
+        state: stopped
+
+    - name: Remove previous release
+      ansible.builtin.file:
+        path: "{{ install_dir }}"
+        state: absent
+
+    - name: Unpack new release
+      ansible.builtin.unarchive:
+        src: "/tmp/{{ artifact_key }}"
+        dest: "{{ install_dir }}"
+        remote_src: true
+
+    - name: Start service
+      ansible.builtin.systemd:
+        name: "{{ service_name }}"
+        state: started

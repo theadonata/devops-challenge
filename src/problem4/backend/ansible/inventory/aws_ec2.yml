@@ -1,0 +1,22 @@
+# Dynamic inventory: every running instance tagged Name=backend-api becomes
+# a target automatically. Scaling the fleet is just "launch + tag another
+# instance" — nothing here or in the playbook needs to change.
+plugin: amazon.aws.aws_ec2
+regions:
+  - ap-southeast-1
+filters:
+  tag:Name: backend-api
+  instance-state-name: running
+
+# Connect over SSM (Session Manager), not SSH: no key pair, no open inbound
+# port. ansible_host has to be the instance ID — that's what the aws_ssm
+# connection plugin expects, not an IP.
+compose:
+  ansible_host: instance_id
+  ansible_connection: "'community.aws.aws_ssm'"
+  ansible_aws_ssm_region: "'ap-southeast-1'"
+  ansible_aws_ssm_bucket_name: "'my-company-deploy-artifacts'"
+
+keyed_groups:
+  - key: tags.Name
+    prefix: tag
