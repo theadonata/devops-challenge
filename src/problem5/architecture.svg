@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="2800" height="1420" viewBox="0 0 1400 710" role="img" aria-label="Architecture diagram of the Fortify The Castle trading platform on AWS, with security changes from Problem 5 marked by red lock badges on the affected services">
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="710" viewBox="0 0 1400 710" role="img" aria-label="Architecture diagram of the Fortify The Castle trading platform on AWS, with security changes from Problem 5 marked by red lock badges on the affected services">
   <defs>
     <pattern id="g" width="28" height="28" patternUnits="userSpaceOnUse">
       <path d="M28 0H0V28" fill="none" stroke="#1c3f63" stroke-width="1" stroke-opacity="0.55"></path>
