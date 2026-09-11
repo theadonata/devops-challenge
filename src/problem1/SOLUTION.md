@@ -10,6 +10,8 @@ A design for a highly available, scalable, cost-effective trading system on AWS,
 2. **Orders** — place a spot order, cancel a spot order.
 3. **Matching** — match buy and sell orders against each other.
 
+![Architecture diagram of the Castle In The Cloud trading platform](./architecture.svg)
+
 ---
 
 ### Role of each component
